@@ -44,6 +44,9 @@ public class BillImpl implements Bill {
         int countMouse = 0;
         double mouseMenoCaro = 0.0d;
        
+        int countTastiere = 0;
+        double tastieraMenoCara = 0.0d;
+
         checkNull(itemList, user);
        
         for(EItem item: itemList) {
@@ -57,7 +60,13 @@ public class BillImpl implements Bill {
                 if(mouseMenoCaro > item.getPrice() || mouseMenoCaro == 0.0d) {
                     mouseMenoCaro = item.getPrice();
                 }
+            }else if(item.getItemType() == ProductType.Keyboard) {
+                countTastiere++;
+                if(tastieraMenoCara == 0.0d || tastieraMenoCara > item.getPrice()) {
+                    tastieraMenoCara = item.getPrice();
+                }
             }
+
             total = total + item.getPrice();
         }
 
@@ -67,6 +76,14 @@ public class BillImpl implements Bill {
 
         if(countMouse > 10) {
             total = total - mouseMenoCaro;
+        }
+
+        if(countTastiere != 0.0d && countMouse != 0.0d && countTastiere == countMouse) {
+            if(mouseMenoCaro <= tastieraMenoCara){
+                total = total - mouseMenoCaro;
+            }else {
+                total = total - tastieraMenoCara;
+            }
         }
 
         if(total > 1000) {

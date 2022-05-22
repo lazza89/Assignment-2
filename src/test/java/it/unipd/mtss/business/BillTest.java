@@ -97,6 +97,90 @@ public class BillTest {
         assertEquals(296.4, bill.getOrderPrice(itemList, user, LocalTime.of(10, 00)), 1e-8);
     }
 
+    //test per requisito 4
+    //se l'articolo meno caro risulta sempre il mouse allora viene fatto il doppio sconto nel totale
+    @Test
+    public void testMoreThan10MouseWithNMouseAndKeyboardEqualCheapMouse() throws BillException {
+        itemList.add(new EItem(ProductType.Mouse, "mouse microsoft", 30));
+        itemList.add(new EItem(ProductType.Mouse, "mouse cinese", 22.3));
+        itemList.add(new EItem(ProductType.Mouse, "mouse boh", 11.2));
+        itemList.add(new EItem(ProductType.Mouse, "mouse bello potente", 72.9));
+        itemList.add(new EItem(ProductType.Mouse, "mouse microsoft tarocco", 10));
+        itemList.add(new EItem(ProductType.Mouse, "mouse microsoft", 30));
+        itemList.add(new EItem(ProductType.Mouse, "mouse cheap", 6));
+        itemList.add(new EItem(ProductType.Mouse, "mouse microsoft", 30));
+        itemList.add(new EItem(ProductType.Mouse, "mouse microsoft", 30));
+        itemList.add(new EItem(ProductType.Mouse, "mouse microsoft", 30));
+        itemList.add(new EItem(ProductType.Mouse, "mouse microsoft", 30));
+        
+        itemList.add(new EItem(ProductType.Keyboard, "keyboard microsoft", 12.5));
+        itemList.add(new EItem(ProductType.Keyboard, "keyboard asus", 20));
+        itemList.add(new EItem(ProductType.Keyboard, "keyboard microsoft", 12.5));
+        itemList.add(new EItem(ProductType.Keyboard, "keyboard asus", 20));
+        itemList.add(new EItem(ProductType.Keyboard, "keyboard microsoft", 12.5));
+        itemList.add(new EItem(ProductType.Keyboard, "keyboard asus", 20));
+        itemList.add(new EItem(ProductType.Keyboard, "keyboard microsoft", 12.5));
+        itemList.add(new EItem(ProductType.Keyboard, "keyboard asus", 20));
+        itemList.add(new EItem(ProductType.Keyboard, "keyboard microsoft", 12.5));
+        itemList.add(new EItem(ProductType.Keyboard, "keyboard asus", 20));
+        itemList.add(new EItem(ProductType.Keyboard, "keyboard microsoft", 12.5));
+        
+        assertEquals(465.4, bill.getOrderPrice(itemList, user, LocalTime.of(10, 00)), 1e-8);
+    }
+    
+    //test per requisito 4
+    @Test
+    public void testMoreThan10MouseWithNMouseAndKeyboardEqualCheapKeyboard() throws BillException {
+        
+        itemList.add(new EItem(ProductType.Mouse, "mouse microsoft", 30));
+        itemList.add(new EItem(ProductType.Mouse, "mouse cinese", 22.3));
+        itemList.add(new EItem(ProductType.Mouse, "mouse boh", 11.2));
+        itemList.add(new EItem(ProductType.Mouse, "mouse bello potente", 72.9));
+        itemList.add(new EItem(ProductType.Mouse, "mouse microsoft tarocco", 10));
+        itemList.add(new EItem(ProductType.Mouse, "mouse microsoft", 30));
+        itemList.add(new EItem(ProductType.Mouse, "mouse cheap", 10));
+        itemList.add(new EItem(ProductType.Mouse, "mouse microsoft", 30));
+        itemList.add(new EItem(ProductType.Mouse, "mouse microsoft", 30));
+        itemList.add(new EItem(ProductType.Mouse, "mouse microsoft", 30));
+        itemList.add(new EItem(ProductType.Mouse, "mouse microsoft", 30));
+        
+        itemList.add(new EItem(ProductType.Keyboard, "keyboard cheap", 6));
+        itemList.add(new EItem(ProductType.Keyboard, "keyboard asus", 20));
+        itemList.add(new EItem(ProductType.Keyboard, "keyboard microsoft", 12.5));
+        itemList.add(new EItem(ProductType.Keyboard, "keyboard asus", 20));
+        itemList.add(new EItem(ProductType.Keyboard, "keyboard microsoft", 12.5));
+        itemList.add(new EItem(ProductType.Keyboard, "keyboard asus", 20));
+        itemList.add(new EItem(ProductType.Keyboard, "keyboard microsoft", 12.5));
+        itemList.add(new EItem(ProductType.Keyboard, "keyboard asus", 20));
+        itemList.add(new EItem(ProductType.Keyboard, "keyboard microsoft", 12.5));
+        itemList.add(new EItem(ProductType.Keyboard, "keyboard asus", 20));
+        itemList.add(new EItem(ProductType.Keyboard, "keyboard microsoft", 12.5));
+        
+        assertEquals(458.9, bill.getOrderPrice(itemList, user, LocalTime.of(10, 00)), 1e-8);
+    }
+    
+    //test per requisito 4
+    @Test
+    public void testEqualsMouseAndKeyboardDiscountCheapMouse() throws BillException {
+		itemList.add(new EItem(ProductType.Keyboard, "keyboard microsoft", 12.5));
+		itemList.add(new EItem(ProductType.Keyboard, "keyboard asus", 20));
+		itemList.add(new EItem(ProductType.Mouse, "mouse cheap", 2.9));
+		itemList.add(new EItem(ProductType.Mouse, "mouse microsoft", 30));
+		
+        assertEquals(62.5, bill.getOrderPrice(itemList, user, LocalTime.of(10, 00)), 1e-8);
+    }
+    
+    //test per requisito 4
+    @Test
+    public void testEqualsMouseAndKeyboardDiscountCheapKeyboard() throws BillException {
+        itemList.add(new EItem(ProductType.Keyboard, "keyboard cheap", 10));
+        itemList.add(new EItem(ProductType.Keyboard, "keyboard asus", 20));
+        itemList.add(new EItem(ProductType.Mouse, "mouse bello", 12.5));
+        itemList.add(new EItem(ProductType.Mouse, "mouse microsoft", 30));
+        
+        assertEquals(62.5, bill.getOrderPrice(itemList, user, LocalTime.of(10, 00)), 1e-8);
+    }
+
     //test per requisito 5
     @Test
     public void testTotalMoreThan1000Euro() throws BillException{
