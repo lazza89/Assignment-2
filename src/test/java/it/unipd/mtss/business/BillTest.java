@@ -30,6 +30,43 @@ public class BillTest {
     	itemList = new ArrayList<EItem>(); 
     }
 	
+	
+	@Test
+    public void testNullItemsList() throws BillException {
+        itemList = null;
+        
+        try {
+            bill.getOrderPrice(itemList, user, LocalTime.of(10, 00));
+        }catch(BillException e) {
+            assertEquals("La lista itemList è uguale a null", e.getMessage());
+        }
+    }
+	
+	@Test
+    public void testNullItemInItemsList() {
+		itemList.add(new EItem(ProductType.Keyboard, "keyboard microsoft", 12.50));
+		itemList.add(null);
+		itemList.add(new EItem(ProductType.Motherboard, "motherboard asus", 77.8));
+        
+        try {
+            bill.getOrderPrice(itemList, user, LocalTime.of(10, 00));
+        }catch(BillException e){
+            assertEquals("La lista itemList contiene un item uguale a null", e.getMessage());
+        }
+    }
+	
+    @Test
+    public void testNullUser() {
+		itemList.add(new EItem(ProductType.Keyboard, "keyboard microsoft", 12.50));
+        
+        try {
+            bill.getOrderPrice(itemList, null, LocalTime.of(10, 00));
+        }catch(BillException e){
+            assertEquals("utente è uguale a null", e.getMessage());
+        }
+    }
+    
+    
     //test per requisito 5
     @Test
     public void testTotalMoreThan1000Euro() throws BillException{
@@ -43,4 +80,5 @@ public class BillTest {
 		
         assertEquals(1598.22, bill.getOrderPrice(itemList, user, LocalTime.of(10, 00)), 1e-8);
     }
+    
 }

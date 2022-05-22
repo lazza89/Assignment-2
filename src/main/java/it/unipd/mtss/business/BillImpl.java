@@ -14,13 +14,27 @@ import it.unipd.mtss.model.User;
 
 public class BillImpl implements Bill {
     
+    private void checkNull(List<EItem> itemList, User user) throws BillException {
+        if(itemList == null) {
+            throw new BillException("La lista itemList è uguale a null");
+        }
+        if(itemList.contains(null)) {
+            throw new BillException("La lista itemList contiene un item uguale a null");
+        }
+        if(user == null) {
+            throw new BillException("utente è uguale a null");
+        }
+    }
+    
     public double getOrderPrice(List<EItem> itemList, User user, LocalTime orderTime) throws BillException {
-        double total = 0.0d;   
+        double total = 0.0d;
        
-        for(EItem item: itemList) {
+        checkNull(itemList, user);
+       
+        for(EItem item: itemList) { 
             total = total + item.getPrice();
         }
-        
+
         if(total > 1000) {
             total = total * 0.9;
         }
