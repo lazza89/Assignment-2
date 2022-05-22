@@ -30,6 +30,17 @@ public class BillTest {
     	itemList = new ArrayList<EItem>(); 
     }
 	
+    //test per requisito 1
+	@Test
+    public void testItemSum() throws BillException {
+		itemList.add(new EItem(ProductType.Keyboard, "keyboard microsoft", 12.50));
+		itemList.add(new EItem(ProductType.Keyboard, "keyboard asus", 20));
+		itemList.add(new EItem(ProductType.Motherboard, "motherboard asus", 77.8));
+		itemList.add(new EItem(ProductType.Mouse, "mouse microsoft", 30));
+		itemList.add(new EItem(ProductType.Processor, "i5 5600k", 355.8));
+        
+        assertEquals(496.1, bill.getOrderPrice(itemList, user, LocalTime.of(10, 00)), 1e-8);
+    }
 	
 	@Test
     public void testNullItemsList() throws BillException {
