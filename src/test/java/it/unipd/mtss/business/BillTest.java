@@ -80,5 +80,13 @@ public class BillTest {
 		
         assertEquals(1598.22, bill.getOrderPrice(itemList, user, LocalTime.of(10, 00)), 1e-8);
     }
+
+    //test per requisito 7
+    @Test
+    public void testUnder10EuroCommission() throws BillException {
+        itemList.add(new EItem(ProductType.Mouse, "mouse cheap", 5));
+        
+        assertEquals(7, bill.getOrderPrice(itemList, user, LocalTime.of(10, 00)), 1e-8);
+    }
     
 }
