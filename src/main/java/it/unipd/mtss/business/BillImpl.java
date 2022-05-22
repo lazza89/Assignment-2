@@ -24,6 +24,9 @@ public class BillImpl implements Bill {
         if(user == null) {
             throw new BillException("utente è uguale a null");
         }
+        if(itemList.size() > 30) {
+            throw new BillException("Ci sono più di 30 items nella lista itemList");
+        }
     }
     
     public double getOrderPrice(List<EItem> itemList, User user, LocalTime orderTime) throws BillException {

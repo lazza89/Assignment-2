@@ -81,6 +81,20 @@ public class BillTest {
         assertEquals(1598.22, bill.getOrderPrice(itemList, user, LocalTime.of(10, 00)), 1e-8);
     }
 
+    //test per requisito 6
+    @Test
+    public void test30ItemsLimit() {
+        for(int i=0; i<31; i++) {
+        	itemList.add(new EItem(ProductType.Mouse, "mouse microsoft", 30));
+        }
+        
+        try {
+            bill.getOrderPrice(itemList, user, LocalTime.of(10, 00));
+        }catch(BillException e){
+            assertEquals("Ci sono più di 30 items nella lista itemList", e.getMessage());
+        }
+    }
+
     //test per requisito 7
     @Test
     public void testUnder10EuroCommission() throws BillException {
