@@ -103,4 +103,14 @@ public class BillTest {
         assertEquals(7, bill.getOrderPrice(itemList, user, LocalTime.of(10, 00)), 1e-8);
     }
     
+    //test per requisito 8
+    @Test
+    public void testFreeOrder() throws BillException {
+        itemList.add(new EItem(ProductType.Processor, "i5", 140.5));
+        itemList.add(new EItem(ProductType.Processor, "i7", 300));
+        itemList.add(new EItem(ProductType.Processor, "i9", 230.9));
+
+        bill.giveaway.r.setSeed(2);
+        assertEquals(0, bill.getOrderPrice(itemList, user, LocalTime.of(18, 30)), 1e-8);
+    }
 }

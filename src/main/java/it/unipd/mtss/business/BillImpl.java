@@ -14,6 +14,12 @@ import it.unipd.mtss.model.User;
 
 public class BillImpl implements Bill {
     
+    GiveawayBillImpl giveaway;
+    
+    public BillImpl() {
+        giveaway = new GiveawayBillImpl();
+    }
+
     private void checkNull(List<EItem> itemList, User user) throws BillException {
         if(itemList == null) {
             throw new BillException("La lista itemList è uguale a null");
@@ -46,6 +52,10 @@ public class BillImpl implements Bill {
             total += 2;
         }
         
+        if(giveaway.giveAwayOrder(user, orderTime)) {
+            return 0;
+        }  
+
         return total;
     }
 }
