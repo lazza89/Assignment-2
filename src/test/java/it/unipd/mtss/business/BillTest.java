@@ -65,6 +65,19 @@ public class BillTest {
             assertEquals("utente è uguale a null", e.getMessage());
         }
     }
+
+    //test per requisito 2
+    @Test
+    public void testMoreThan5ProcessoriDiscount() throws BillException {
+		itemList.add(new EItem(ProductType.Processor, "i3", 150.4));
+		itemList.add(new EItem(ProductType.Processor, "pentium 4", 33.3));
+		itemList.add(new EItem(ProductType.Processor, "i5", 140.5));
+		itemList.add(new EItem(ProductType.Processor, "i7", 300));
+		itemList.add(new EItem(ProductType.Processor, "i9", 230.9));
+		itemList.add(new EItem(ProductType.Processor, "amd", 132.7));
+        
+        assertEquals(971.15, bill.getOrderPrice(itemList, user, LocalTime.of(10, 00)), 1e-8);
+    }
     
     //test per requisito 3
     @Test
