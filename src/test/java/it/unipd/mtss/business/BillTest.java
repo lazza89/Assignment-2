@@ -66,7 +66,24 @@ public class BillTest {
         }
     }
     
-    
+    //test per requisito 3
+    @Test
+    public void testMoreThan10MouseGift() throws BillException {
+		itemList.add(new EItem(ProductType.Mouse, "mouse microsoft", 30));
+		itemList.add(new EItem(ProductType.Mouse, "mouse cinese", 22.3));
+		itemList.add(new EItem(ProductType.Mouse, "mouse boh", 11.2));
+		itemList.add(new EItem(ProductType.Mouse, "mouse bello potente", 72.9));
+		itemList.add(new EItem(ProductType.Mouse, "mouse microsoft tarocco", 10));
+		itemList.add(new EItem(ProductType.Mouse, "mouse microsoft", 30));
+		itemList.add(new EItem(ProductType.Mouse, "mouse cheap", 6));
+		itemList.add(new EItem(ProductType.Mouse, "mouse microsoft", 30));
+		itemList.add(new EItem(ProductType.Mouse, "mouse microsoft", 30));
+		itemList.add(new EItem(ProductType.Mouse, "mouse microsoft", 30));
+		itemList.add(new EItem(ProductType.Mouse, "mouse microsoft", 30));
+
+        assertEquals(296.4, bill.getOrderPrice(itemList, user, LocalTime.of(10, 00)), 1e-8);
+    }
+
     //test per requisito 5
     @Test
     public void testTotalMoreThan1000Euro() throws BillException{

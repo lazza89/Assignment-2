@@ -37,11 +37,25 @@ public class BillImpl implements Bill {
     
     public double getOrderPrice(List<EItem> itemList, User user, LocalTime orderTime) throws BillException {
         double total = 0.0d;
+
+        int countMouse = 0;
+        double mouseMenoCaro = 0.0d;
        
         checkNull(itemList, user);
        
-        for(EItem item: itemList) { 
+        for(EItem item: itemList) {
+            if(item.getItemType() == ProductType.Mouse) {
+                countMouse++;
+                if(mouseMenoCaro > item.getPrice() || mouseMenoCaro == 0.0d) {
+                    mouseMenoCaro = item.getPrice();
+                }
+            }
+
             total = total + item.getPrice();
+        }
+
+        if(countMouse > 10) {
+            total = total - mouseMenoCaro;
         }
 
         if(total > 1000) {
